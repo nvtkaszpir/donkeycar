@@ -2,10 +2,10 @@
 
 pilots.py
 
-Methods to create, use, save and load pilots. Pilots 
+Methods to create, use, save and load pilots. Pilots
 contain the highlevel logic used to determine the angle
-and throttle of a vehicle. Pilots can include one or more 
-models to help direct the vehicles motion. 
+and throttle of a vehicle. Pilots can include one or more
+models to help direct the vehicles motion.
 
 """
 
@@ -101,8 +101,8 @@ class KerasPilot(object):
     ):
 
         """
-        train_gen: generator that yields an array of images an array of 
-        
+        train_gen: generator that yields an array of images an array of
+
         """
 
         # checkpoint to save model after each epoch
@@ -158,9 +158,7 @@ class KerasCategorical(KerasPilot):
         input_shape=(120, 160, 3),
         throttle_range=0.5,
         roi_crop=(0, 0),
-        *args,
-        **kwargs,
-    ):
+        *args, **kwargs):
         super(KerasCategorical, self).__init__(*args, **kwargs)
         self.model = default_categorical(input_shape, roi_crop)
         self.compile()
@@ -194,7 +192,7 @@ class KerasCategorical(KerasPilot):
 
 class KerasLinear(KerasPilot):
     """
-    The KerasLinear pilot uses one neuron to output a continous value via the 
+    The KerasLinear pilot uses one neuron to output a continous value via the
     Keras Dense layer with linear activation. One each for steering and throttle.
     The output is not bounded.
     """
@@ -204,9 +202,7 @@ class KerasLinear(KerasPilot):
         num_outputs=2,
         input_shape=(120, 160, 3),
         roi_crop=(0, 0),
-        *args,
-        **kwargs,
-    ):
+        *args, **kwargs):
         super(KerasLinear, self).__init__(*args, **kwargs)
         self.model = default_n_linear(num_outputs, input_shape, roi_crop)
         self.compile()
@@ -232,7 +228,7 @@ class KerasIMU(KerasPilot):
 
     X_keys = ['cam/image_array','imu_array']
     y_keys = ['user/angle', 'user/throttle']
-    
+
     def rt(rec):
         rec['imu_array'] = np.array([ rec['imu/acl_x'], rec['imu/acl_y'], rec['imu/acl_z'],
             rec['imu/gyr_x'], rec['imu/gyr_y'], rec['imu/gyr_z'] ])
@@ -253,9 +249,7 @@ class KerasIMU(KerasPilot):
         num_outputs=2,
         num_imu_inputs=6,
         input_shape=(120, 160, 3),
-        *args,
-        **kwargs,
-    ):
+        *args, **kwargs):
         super(KerasIMU, self).__init__(*args, **kwargs)
         self.num_imu_inputs = num_imu_inputs
         self.model = default_imu(
@@ -292,9 +286,7 @@ class KerasBehavioral(KerasPilot):
         num_outputs=2,
         num_behavior_inputs=2,
         input_shape=(120, 160, 3),
-        *args,
-        **kwargs,
-    ):
+        *args, **kwargs):
         super(KerasBehavioral, self).__init__(*args, **kwargs)
         self.model = default_bhv(
             num_outputs=num_outputs,
@@ -334,9 +326,7 @@ class KerasLocalizer(KerasPilot):
         model=None,
         num_locations=8,
         input_shape=(120, 160, 3),
-        *args,
-        **kwargs,
-    ):
+        *args, **kwargs):
         super(KerasLocalizer, self).__init__(*args, **kwargs)
         self.model = default_loc(
             num_locations=num_locations, input_shape=input_shape
@@ -641,9 +631,7 @@ class KerasRNN_LSTM(KerasPilot):
         image_d=3,
         seq_length=3,
         num_outputs=2,
-        *args,
-        **kwargs,
-    ):
+        *args, **kwargs):
         super(KerasRNN_LSTM, self).__init__(*args, **kwargs)
         image_shape = (image_h, image_w, image_d)
         self.model = rnn_lstm(
@@ -730,9 +718,7 @@ class Keras3D_CNN(KerasPilot):
         image_d=3,
         seq_length=20,
         num_outputs=2,
-        *args,
-        **kwargs,
-    ):
+        *args, **kwargs):
         super(Keras3D_CNN, self).__init__(*args, **kwargs)
         self.model = build_3d_cnn(
             w=image_w,
@@ -887,8 +873,7 @@ def build_3d_cnn(w, h, d, s, num_outputs):
 
 class KerasLatent(KerasPilot):
     def __init__(
-        self, num_outputs=2, input_shape=(120, 160, 3), *args, **kwargs
-    ):
+        self, num_outputs=2, input_shape=(120, 160, 3), *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.model = default_latent(num_outputs, input_shape)
         self.compile()

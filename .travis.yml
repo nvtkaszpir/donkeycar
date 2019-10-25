@@ -46,6 +46,7 @@ jobs:
     - name: markdownlint
     - name: yamllint
     - name: black
+    - name: flake8
 
   include:
 

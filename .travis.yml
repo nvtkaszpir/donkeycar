@@ -71,6 +71,18 @@ jobs:
       script:
         - "black --check ."
 
+    # flake8
+    - stage: lint
+      name: flake8
+      language: python
+      install:
+        - pip install --upgrade pip
+        - hash -r
+        - pip install flake8
+        - pip install flake8-bugbear
+      script:
+        - "flake8 --statistics"
+
     # yamllint https://github.com/adrienverge/yamllint
     - stage: lint
       name: yamllint

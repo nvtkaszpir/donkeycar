@@ -77,7 +77,7 @@ jobs:
       language: shell
       install: skip
       script:
-        - "docker run --rm -v $PWD:/yaml:ro sdesbure/yamllint yamllint ."
+        - "docker run --rm -v $PWD:/yaml:ro sdesbure/yamllint yamllint -f parsable ."
 
     # markdownlint CLI https://github.com/06kellyjac/docker_markdownlint-cli
     - stage: lint

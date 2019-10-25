@@ -87,6 +87,83 @@ jobs:
       script:
         - "docker run -v $PWD:/markdown:ro 06kellyjac/markdownlint-cli ."
 
+    # conda installs
+    - stage: conda
+      name: conda-mac
+      language: shell
+      install: skip
+      script:
+        - sudo apt-get update -qq
+        - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+        - bash miniconda.sh -b -p $HOME/miniconda
+        - export PATH="$HOME/miniconda/bin:$PATH"
+        - hash -r
+        - conda config --set always_yes yes --set changeps1 no
+        - conda update -q conda
+        - conda info -a
+        - conda env create -f install/envs/mac.yml
+        - source activate donkey
+    - stage: conda
+      name: conda-rpi
+      language: shell
+      install: skip
+      script:
+        - sudo apt-get update -qq
+        - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+        - bash miniconda.sh -b -p $HOME/miniconda
+        - export PATH="$HOME/miniconda/bin:$PATH"
+        - hash -r
+        - conda config --set always_yes yes --set changeps1 no
+        - conda update -q conda
+        - conda info -a
+        - conda env create -f install/envs/rpi.yml
+        - source activate donkey
+    - stage: conda
+      name: conda-sagemaker
+      language: shell
+      install: skip
+      script:
+        - sudo apt-get update -qq
+        - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+        - bash miniconda.sh -b -p $HOME/miniconda
+        - export PATH="$HOME/miniconda/bin:$PATH"
+        - hash -r
+        - conda config --set always_yes yes --set changeps1 no
+        - conda update -q conda
+        - conda info -a
+        - conda env create -f install/envs/sagemaker.yml
+        - source activate donkey
+    - stage: conda
+      name: conda-ubuntu
+      language: shell
+      install: skip
+      script:
+        - sudo apt-get update -qq
+        - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+        - bash miniconda.sh -b -p $HOME/miniconda
+        - export PATH="$HOME/miniconda/bin:$PATH"
+        - hash -r
+        - conda config --set always_yes yes --set changeps1 no
+        - conda update -q conda
+        - conda info -a
+        - conda env create -f install/envs/ubuntu.yml
+        - source activate donkey
+    - stage: conda
+      name: conda-windows
+      language: shell
+      install: skip
+      script:
+        - sudo apt-get update -qq
+        - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+        - bash miniconda.sh -b -p $HOME/miniconda
+        - export PATH="$HOME/miniconda/bin:$PATH"
+        - hash -r
+        - conda config --set always_yes yes --set changeps1 no
+        - conda update -q conda
+        - conda info -a
+        - conda env create -f install/envs/windows.yml
+        - source activate donkey
+
     - stage: deploy
       python: 3.6
       script: skip

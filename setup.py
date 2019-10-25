@@ -56,7 +56,7 @@ setup(
         "pi": ["picamera", "Adafruit_PCA9685", "RPi.GPIO"],
         "nano": ["Adafruit_PCA9685"],
         "pc": ["matplotlib"],
-        "dev": ["pytest", "pytest-cov", "responses", "black"],
+        "dev": ["pytest", "pytest-cov", "responses"],
         "ci": ["codecov"],
         "tf": ["tensorflow>=1.9.0"],
         "tf_gpu": ["tensorflow-gpu>=1.9.0"],

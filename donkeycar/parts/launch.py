@@ -1,13 +1,16 @@
 import time
 
-class AiLaunch():
-    '''
+
+class AiLaunch:
+    """
     This part will apply a large thrust on initial activation. This is to help
     in racing to start fast and then the ai will take over quickly when it's
     up to speed.
-    '''
+    """
 
-    def __init__(self, launch_duration=1.0, launch_throttle=1.0, keep_enabled=False):
+    def __init__(
+        self, launch_duration=1.0, launch_throttle=1.0, keep_enabled=False
+    ):
         self.active = False
         self.enabled = False
         self.timer_start = None
@@ -15,10 +18,10 @@ class AiLaunch():
         self.launch_throttle = launch_throttle
         self.prev_mode = None
         self.trigger_on_switch = keep_enabled
-        
+
     def enable_ai_launch(self):
         self.enabled = True
-        print('AiLauncher is enabled.')
+        print("AiLauncher is enabled.")
 
     def run(self, mode, ai_throttle):
         new_throttle = ai_throttle
@@ -41,8 +44,7 @@ class AiLaunch():
             self.active = False
 
         if self.active:
-            print('AiLauncher is active!!!')
+            print("AiLauncher is active!!!")
             new_throttle = self.launch_throttle
 
         return new_throttle
-

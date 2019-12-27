@@ -42,7 +42,7 @@ setup(name='donkeycar',
                       'requests',
                       'h5py',
                       'moviepy',
-                      'pandas',
+                      'pandas==0.25.3',
                       'PrettyTable',
                       'paho-mqtt'
                      ],
